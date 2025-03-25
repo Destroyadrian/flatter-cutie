@@ -7,14 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const votesForm = document.getElementById('votes-form');
     const votesInput = document.getElementById('votes');
     const resetBtn = document.getElementById('reset-btn');
-    // Bonus: The bonus form is commented out in your index.html.
-    // When you are ready to work on the bonus deliverables, uncomment the bonus section and update the IDs.
+
     const characterForm = document.getElementById('character-form');
   
     const baseURL = "http://localhost:3000";
     let currentCharacter = null; // The character currently displayed in the detailed section
   
-    // 1. Fetch and display all characters in the character bar
+    // Fetch and display all characters in the character bar
     fetch(`${baseURL}/characters`)
       .then(response => response.json())
       .then(characters => {
@@ -22,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => console.error('Error fetching characters:', error));
   
-    // Render each character as a clickable span in the character bar
+
     function renderCharacter(character) {
       const span = document.createElement('span');
       span.textContent = character.name;
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       characterBar.appendChild(span);
     }
   
-    // Display the selected character’s details in the detailed info area
+    // Display the selected character’s details 
     function displayCharacter(character) {
       nameDisplay.textContent = character.name;
       imageDisplay.src = character.image;
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       voteCountDisplay.textContent = character.votes;
     }
   
-    // 3. Handle votes form submission to add votes
+    // Handle votes form submission to add votes
     votesForm.addEventListener('submit', (e) => {
       e.preventDefault();
       if (!currentCharacter) return; // Exit if no character has been selected
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       voteCountDisplay.textContent = currentCharacter.votes;
       votesInput.value = '';
   
-      // Extra Bonus: Update the votes on the server using a PATCH request
+ 
       fetch(`${baseURL}/characters/${currentCharacter.id}`, {
         method: 'PATCH',
         headers: {
@@ -70,13 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Error updating votes:', error));
     });
   
-    // Bonus Deliverable: Reset Votes button functionality
+
     resetBtn.addEventListener('click', () => {
       if (!currentCharacter) return;
       currentCharacter.votes = 0;
       voteCountDisplay.textContent = 0;
-  
-      // Extra Bonus: Reset votes on the server using a PATCH request
+
       fetch(`${baseURL}/characters/${currentCharacter.id}`, {
         method: 'PATCH',
         headers: {
@@ -91,10 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Error resetting votes:', error));
     });
   
-    // Bonus Deliverable: Add a new character using the bonus form
+
     if (characterForm) {
-      // IMPORTANT: In your bonus HTML, change the input IDs so they don’t conflict with existing elements.
-      // For example, use id="character-name" and id="character-image-url" instead of "name".
+
       const characterNameInput = document.getElementById('character-name') || characterForm.querySelector('[name="name"]');
       const imageUrlInput = document.getElementById('character-image-url') || characterForm.querySelector('[name="image-url"]');
   
